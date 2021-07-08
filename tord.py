@@ -50,17 +50,6 @@ async def on_guild_remove(guild):
     with open('prefixes.json', 'w') as f:
         json.dump(prefixes, f, indent=4) 
 
-@client.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send('Missing arguments.')
-        return
-    elif isinstance(error, commands.BadArgument):
-        await ctx.send('Bad argument')
-        return
-    else:
-        raise error
-
 ############################### Useless Shit ################################################################
 
 ## PING
