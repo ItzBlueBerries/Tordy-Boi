@@ -1,0 +1,4 @@
+.env
+prefixes.json
+../../__pycache__
+*.pyc
