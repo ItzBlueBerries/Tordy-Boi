@@ -2,6 +2,7 @@
 
 #### Imports ####
 
+from math import factorial
 import os
 from dotenv import load_dotenv
 import json
@@ -50,5 +51,98 @@ async def reload(ctx, extension):
 for filename in os.listdir('./cogified'):
     if filename.endswith('.py'):
         client.load_extension(f'cogified.{filename[:-3]}')
+
+###################### Currency Functions ############################
+
+async def open_account(user):
+    users = await get_bank_data()
+
+    if str(user.id) in users:
+        return False
+    else:
+        users[str(user.id)] = {}
+        users[str(user.id)]["wallet"] = 0
+        users[str(user.id)]["bank"] = 150
+
+    with open('bank.json', 'w') as f:
+        json.dump(users, f, indent=4)
+    return True
+
+async def get_bank_data():
+    with open('bank.json', 'r') as f:
+        users = json.load(f)
+
+    return users
+
+async def update_bank(user, change=0, mode="wallet"):
+    users = await get_bank_data()
+
+    users[str(user.id)][mode] += change
+
+    with open('bank.json', 'w') as f:
+        json.dump(users, f, indent=4)
+
+    bal = [users[str(user.id)]["wallet"], users[str(user.id)]['bank']]
+    return bal
+
+################## Currency commands but I can't get cogs working right now lol #################################S
+
+# BALANCE
+
+@client.command(aliases=['bal'])
+async def balance(ctx, member : discord.Member = None):
+    if not member:
+        member = ctx.author
+    await open_account(member)
+
+    users = await get_bank_data()
+    user = member
+
+    wallet_amount =  users[str(user.id)]["wallet"]
+    bank_amount =  users[str(user.id)]["bank"]
+
+    await ctx.send(
+        f'__***{member.name}\'s Balance***__\n\n**Wallet:** *{wallet_amount}*\n**Bank:** *{bank_amount}*'
+    )
+
+# BEG
+
+@client.command()
+@commands.cooldown(1, 17, commands.BucketType.user)
+async def beg(ctx):
+    await open_account(ctx.author)
+
+    users = await get_bank_data()
+    user = ctx.author
+
+    earnings = random.randrange(310)
+
+    people = [
+        'Mr. Goodman',
+        'Fruitsy',
+        'Tordy Boi',
+        'Dr. Phobia',
+        'Katie Perry',
+        'Tallie',
+        'Drey',
+	    'Kailani',	
+        'Dewey',
+	    'Rochella',	
+        'Danyon',
+	    'Trixibelle',	
+        'Jetaime',
+        'Daddy~',
+        'Discord',
+        'Tom',
+        'Edd',
+        'Matt'
+    ]
+
+    await ctx.send(f'**{random.choice(people)}** has given you: *{earnings}* coins/money.')
+
+    users[str(user.id)]["wallet"] += earnings
+
+    with open("bank.json", 'w') as f:
+        json.dump(users, f, indent=4)
 
 client.run(os.getenv('DISCORD_TOKEN'))

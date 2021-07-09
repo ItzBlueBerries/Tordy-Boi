@@ -4,3 +4,4 @@ prefixes.json
 *.pyc
 for_later.txt
 *.fruitscript
+bank.json

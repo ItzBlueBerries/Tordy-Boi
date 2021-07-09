@@ -130,6 +130,11 @@ class errorHandler(commands.Cog):
             print(error)
             return
         
+        elif isinstance(error, commands.CommandOnCooldown):
+            await ctx.send(error)
+            print(error)
+            return
+
         else:
 
             raise error

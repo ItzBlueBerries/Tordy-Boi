@@ -3,6 +3,7 @@ from typing import Collection
 import discord
 from discord import client
 from discord import message
+from discord import colour
 from discord.colour import Colour
 from discord.ext import commands
 from discord.ext.commands.errors import CheckAnyFailure
@@ -36,13 +37,18 @@ class Informational(commands.Cog):
         Moderate.add_field(name='Unmute', value='`Unmutes the mentioned user.`', inline=False)
 
         Utility = discord.Embed(title='Utility Section', description='This is where all the utility commands are.', colour=color)
-        Utility.add_field(name='setprefix', value='`Changes the guilds prefix.`', inline=False)
+        Utility.add_field(name='Setprefix', value='`Changes the guilds prefix.`', inline=False)
+
+        Economy = discord.Embed(title='Economy Section', description='This is where all the economy commands are.', colour=color)
+        Economy.add_field(name='Balance', value='`Gets your money balance.`', inline=False)
+        Economy.add_field(name='Beg', value='`Beg for money from strangers, lol.`', inline=False)
 
         embeds = [
             Info,
             Useless,
             Moderate,
-            Utility
+            Utility,
+            Economy
         ]
 
         paginator = BotEmbedPaginator(ctx, embeds)
