@@ -7,7 +7,7 @@ from discord.ext.commands.errors import CheckAnyFailure
 import tord
 import json
 
-class Useless(commands.Cog):
+class Utility(commands.Cog):
 
     def __init__(self, client):
         self.client = client
@@ -33,4 +33,4 @@ class Useless(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(Useless(client))
+    client.add_cog(Utility(client))

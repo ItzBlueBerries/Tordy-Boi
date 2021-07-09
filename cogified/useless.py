@@ -20,6 +20,11 @@ class Useless(commands.Cog):
         """ Says hello to you! """
         await ctx.send(f'Hello there, {ctx.author}. I\'m Tordy..Nice meetin\' ya.')
 
+    @commands.command(aliases=['community'])
+    async def server(self, ctx):
+        """ The community server for the bot. """
+        await ctx.send('https://discord.gg/tWNAUsf5MW')
+
 
 def setup(client):
     client.add_cog(Useless(client))
