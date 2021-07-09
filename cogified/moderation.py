@@ -85,5 +85,22 @@ class Moderation(commands.Cog):
         await ctx.send(f'{member.mention} has apparently been unmuted, lol.')
         await member.send(f'You have been unmuted in {guild.name}...you must have been bad....BUT NOW YOUR GOOD!\nYou want the reason...?: ***{reason}***')
 
+    @commands.command(aliases=['sm'])
+    async def slowmode(self, ctx, time:int):
+        try:
+            if time == 0:
+                await ctx.send('Slowmode set to normal.')
+                await ctx.channel.edit(slowmode_delay = 0)
+            elif time > 21600:
+                await ctx.send('Slowmode cannot go above 6 hours.')
+                return
+            else:
+                await ctx.channel.edit(slowmode_delay = time)
+                await ctx.send(f'Slowmode has been set: `{time} seconds`')
+        except Exception:
+            await ctx.send('...Error...I think..')
+            await print('Huh...')
+            return
+
 def setup(client):
     client.add_cog(Moderation(client))
