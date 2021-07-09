@@ -4,12 +4,15 @@
 
 from math import factorial
 import os
+from discord.user import Profile
 from dotenv import load_dotenv
 import json
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 import random
 from discord.guild import Guild
+import asyncio
+import glob
 
 ################ Start of stuff lol ################
 
@@ -26,6 +29,22 @@ def get_prefix(client, message):
     return prefixes[str(message.guild.id)]
 
 client = commands.Bot(command_prefix=get_prefix, help_command=None)
+
+################### Background Tasks Lol ####################3
+
+async def ch_pr():
+    await client.wait_until_ready()
+
+    my_statuses = [f'Death? ... | t!help | {len(client.guilds)} servers.', f'Hi..I\'m tord.. | t!help | {len(client.guilds)} servers.']
+
+
+    while not client.is_closed():
+
+        status = random.choice(my_statuses)
+
+        await client.change_presence(status=discord.Status.dnd, activity=discord.Game(name=status))
+
+        await asyncio.sleep(15)
 
 ################################### Cog Stuff Lol ###########################################
 
@@ -237,5 +256,7 @@ async def give(ctx, member:discord.Member, amount=None):
     await update_bank(member, amount, "wallet")
 
     await ctx.send(f'You gave {member} {amount}, are you satisfied yet? lol.')
+
+client.loop.create_task(ch_pr())
 
 client.run(os.getenv('DISCORD_TOKEN'))

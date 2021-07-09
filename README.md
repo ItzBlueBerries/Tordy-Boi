@@ -1,4 +1,4 @@
-![Tord](assets/images/TordMinus.jpg)
+![Tord](assets/images/tord/TordMinus.jpg)
 # ***Tordy Boi Github Repo***
 Tordy Boi is a discord bot created by Fruitsy, based on Tord from Eddsworld I guess, lol.  
 **CONTRIBUTORS ARE ALLOWED AT THE MOMENT!**

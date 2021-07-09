@@ -35,6 +35,12 @@ class Events(commands.Cog):
         with open('prefixes.json', 'w') as f:
             json.dump(prefixes, f, indent=4) 
 
+    @commands.Cog.listener()
+    async def on_disconnect(self):
+        print('Disconnecting...')
+        asyncio.sleep(0.5)
+        print('BotDisconnection <---- Tordy Boi!')
+
 
 def setup(client):
     client.add_cog(Events(client))
