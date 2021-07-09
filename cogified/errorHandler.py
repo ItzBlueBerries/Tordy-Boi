@@ -125,6 +125,11 @@ class errorHandler(commands.Cog):
             print(error)
             return
         
+        elif isinstance(error, commands.TooManyArguments):
+            await ctx.send('Too many arguments, try again.')
+            print(error)
+            return
+        
         else:
 
             raise error
