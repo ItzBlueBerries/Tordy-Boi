@@ -145,4 +145,97 @@ async def beg(ctx):
     with open("bank.json", 'w') as f:
         json.dump(users, f, indent=4)
 
+# WITHDRAW
+
+@client.command(aliases=['with', 'wd', 'draw'])
+async def withdraw(ctx, amount=None):
+    await open_account(ctx.author)
+
+    if amount == None:
+        await ctx.send('You did not provide an amount to withdraw.')
+        return
+    
+    bal = await update_bank(ctx.author)
+
+    if amount == "all":
+        amount = bal[1]
+    elif amount == "max":
+        amount = bal[1]
+
+    amount = int(amount)
+
+    if amount < 0:
+        await ctx.send('Amount given must be more then 0.')
+        return
+    
+    if amount > bal[1]:
+        await ctx.send('You do not have enough money to withdraw.')
+        return
+
+    await update_bank(ctx.author, amount, "wallet")
+    await update_bank(ctx.author, -1*amount, "bank")
+
+    await ctx.send(f'You withdrawed {amount}, are you satisfied yet? lol.')
+
+@client.command(aliases=['depo'])
+async def deposit(ctx, amount=None):
+    await open_account(ctx.author)
+
+    if amount == None:
+        await ctx.send('You did not provide an amount to deposit.')
+        return
+    
+    bal = await update_bank(ctx.author)
+
+    if amount == "all":
+        amount = bal[1]
+    elif amount == "max":
+        amount = bal[1]
+
+    amount = int(amount)
+
+    if amount < 0:
+        await ctx.send('Amount given must be more then 0.')
+        return
+    
+    if amount > bal[1]:
+        await ctx.send('You do not have enough money to withdraw.')
+        return
+
+    await update_bank(ctx.author, -1*amount, "wallet")
+    await update_bank(ctx.author, amount, "bank")
+
+    await ctx.send(f'You deposited {amount}, are you satisfied yet? lol.')
+
+@client.command(aliases=['dep', 'd', 'posit'])
+async def give(ctx, member:discord.Member, amount=None):
+    await open_account(ctx.author)
+    await open_account(member)
+
+    if amount == None:
+        await ctx.send('You did not provide an amount to give.')
+        return
+    
+    bal = await update_bank(ctx.author)
+
+    if amount == "all":
+        amount = bal[1]
+    elif amount == "max":
+        amount = bal[1]
+
+    amount = int(amount)
+
+    if amount < 0:
+        await ctx.send('Amount given must be more then 0.')
+        return
+    
+    if amount > bal[1]:
+        await ctx.send('You do not have enough money to withdraw.')
+        return
+
+    await update_bank(ctx.author, -1*amount, "wallet")
+    await update_bank(member, amount, "wallet")
+
+    await ctx.send(f'You gave {member} {amount}, are you satisfied yet? lol.')
+
 client.run(os.getenv('DISCORD_TOKEN'))

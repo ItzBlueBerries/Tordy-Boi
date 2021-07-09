@@ -42,6 +42,9 @@ class Informational(commands.Cog):
         Economy = discord.Embed(title='Economy Section', description='This is where all the economy commands are.', colour=color)
         Economy.add_field(name='Balance', value='`Gets your money balance.`', inline=False)
         Economy.add_field(name='Beg', value='`Beg for money from strangers, lol.`', inline=False)
+        Economy.add_field(name='Withdraw', value='`Withdraw some money from the bank.`', inline=False)
+        Economy.add_field(name='Deposit', value='`Deposit some money from the wallet.`', inline=False)
+        Economy.add_field(name='Give', value='`Give somebody some money.(From your wallet only, lol.)`', inline=False)
 
         embeds = [
             Info,
