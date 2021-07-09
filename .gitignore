@@ -2,3 +2,5 @@
 prefixes.json
 ../../__pycache__
 *.pyc
+for_later.txt
+*.fruitscript
