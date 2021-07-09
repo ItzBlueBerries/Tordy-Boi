@@ -25,6 +25,5 @@ class Useless(commands.Cog):
         """ The community server for the bot. """
         await ctx.send('https://discord.gg/tWNAUsf5MW')
 
-
 def setup(client):
     client.add_cog(Useless(client))
