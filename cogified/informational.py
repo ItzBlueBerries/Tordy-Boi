@@ -22,11 +22,13 @@ class Informational(commands.Cog):
 
         Info = discord.Embed(title='Informational Section', description='This is where all the informative commands are.', colour=color)
         Info.add_field(name='Help', value='`Showcases all the commands.`', inline=False)
+        Info.add_field(name='Serverinfo', value='`Gives info on the current guild your in.`', inline=False)
 
         Useless = discord.Embed(title='Useless Section', description='This is where all the useless stuff is, lol.', colour=color)
         Useless.add_field(name='Ping', value='`Pong! (Gets the bots latency.)`', inline=False)
         Useless.add_field(name='Hello', value='`Says hello back.`', inline=False)
         Useless.add_field(name='Server', value='`The bots community server.`', inline=False)
+        Useless.add_field(name='Avatar', value='`Gets your avatar or mentioned user.`', inline=False)
 
         Moderate = discord.Embed(title='Moderation Section', description='This is where all the moderation commands are.', colour=color)
         Moderate.add_field(name='Kick', value='`Kicks the mentioned member.`', inline=False)
@@ -57,6 +59,22 @@ class Informational(commands.Cog):
 
         paginator = BotEmbedPaginator(ctx, embeds)
         await paginator.run()
+
+    @commands.command(aliases=['si', 'guildinfo', 'gi', 'sinfo', 'ginfo'])
+    async def serverinfo(self, ctx):
+        roles = len(ctx.guild.roles)
+        bots = [bot.mention for bot in ctx.guild.members if bot.bot]
+        color = discord.Colour.dark_red()
+
+        ServerInfo = discord.Embed(rimestamp=ctx.message.created_at, title=f'Current Guild Information', color=color)
+        ServerInfo.add_field(name='Server Name:', value=f'{ctx.guild.name}')
+        ServerInfo.add_field(name='Verification Level', value=str(ctx.guild.verification_level))
+        ServerInfo.add_field(name='Member Count:', value=ctx.guild.member_count)
+        ServerInfo.add_field(name='Role Count:', value=str(roles))
+        ServerInfo.add_field(name='Highest Role:', value=ctx.guild.roles[-1])
+#       ServerInfo.add_field(name='Bot Count:', value=', '.join(bots))
+
+        await ctx.send(embed=ServerInfo)
 
 def setup(client):
     client.add_cog(Informational(client))
