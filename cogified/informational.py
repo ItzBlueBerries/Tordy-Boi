@@ -48,6 +48,7 @@ class Informational(commands.Cog):
         Economy.add_field(name='Withdraw', value='`Withdraw some money from the bank.`', inline=False)
         Economy.add_field(name='Deposit', value='`Deposit some money from the wallet.`', inline=False)
         Economy.add_field(name='Give', value='`Give somebody some money.(From your wallet only, lol.)`', inline=False)
+        Economy.add_field(name='Rob', value='`Rob someone of their money/coins.', inline=False)
 
         embeds = [
             Info,
