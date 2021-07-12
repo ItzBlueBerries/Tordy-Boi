@@ -38,6 +38,8 @@ class Informational(commands.Cog):
         Moderate.add_field(name='Mute', value='`Mutes the mentioned user. (If no role will create(Any bugs, contact the server))`', inline=False)
         Moderate.add_field(name='Unmute', value='`Unmutes the mentioned user.`', inline=False)
         Moderate.add_field(name='Slowmode', value='`Sets a channels slowmode.`', inline=False)
+        Moderate.add_field(name='Rename', value='`Renames current channel your in.`', inline=False)
+        Moderate.add_field(name='Create', value='`Creates a channel in the current guild your in.`', inline=False)
 
         Utility = discord.Embed(title='Utility Section', description='This is where all the utility commands are.', colour=color)
         Utility.add_field(name='Setprefix', value='`Changes the guilds prefix.`', inline=False)

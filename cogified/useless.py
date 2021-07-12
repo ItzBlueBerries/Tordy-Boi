@@ -39,5 +39,9 @@ class Useless(commands.Cog):
 
         await ctx.send(embed=AvatarEmbed)
 
+    @commands.command(aliases=['ads'])
+    async def advertisement(self, ctx):
+        await ctx.send('Testing..')
+
 def setup(client):
     client.add_cog(Useless(client))

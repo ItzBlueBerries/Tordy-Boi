@@ -87,6 +87,9 @@ class Moderation(commands.Cog):
 
     @commands.command(aliases=['sm'])
     async def slowmode(self, ctx, time:int):
+        if (not ctx.author.guild_permissions.manage_channels):
+            await ctx.send('Yeah, you don\'t have the `MANAGE_CHANNELS` permission, lol.')
+            return
         try:
             if time == 0:
                 await ctx.send('Slowmode set to normal.')
@@ -101,6 +104,32 @@ class Moderation(commands.Cog):
             await ctx.send('...Error...I think..')
             await print('Huh...')
             return
+
+    @commands.command()
+    async def rename(self, ctx, arg1=None):
+        if (not ctx.author.guild_permissions.manage_channels):
+            await ctx.send('Yeah, you don\'t have the `MANAGE_CHANNELS` permission, lol.')
+            return
+        if arg1 == None:
+            return await ctx.send('Must supply a channel to rename..')
+        
+        await ctx.message.channel.edit(name=arg1)
+        await ctx.send('Renaming..')
+        await asyncio.sleep(1)
+        await ctx.send(f'Channel renamed to {arg1}')
+
+    @commands.command()
+    async def create(self, ctx, arg1=None):
+        if (not ctx.author.guild_permissions.manage_channels):
+            await ctx.send('Yeah, you don\'t have the `MANAGE_CHANNELS` permission, lol.')
+            return
+        if arg1 == None:
+            return await ctx.send('Must supply a channel to create..')
+        
+        await ctx.guild.create_text_channel(arg1)
+        await ctx.send('Creating..')
+        await asyncio.sleep(1)
+        await ctx.send(f'{arg1} has been created.')
 
 def setup(client):
     client.add_cog(Moderation(client))
