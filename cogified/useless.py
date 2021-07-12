@@ -54,5 +54,12 @@ class Useless(commands.Cog):
 
         await ctx.send(embed=ads)
 
+    @commands.command(aliases=['inv'])
+    async def invite(self, ctx):
+        color = discord.Colour.dark_red()
+
+        inviteEmbed = discord.Embed(title='Bot Invite', description=f'[Here is my invite! Go add me to your server if you want lol.](https://discord.com/api/oauth2/authorize?client_id=862605357284982784&permissions=8&scope=bot)', colour=color)
+        await ctx.send(embed=inviteEmbed)
+
 def setup(client):
     client.add_cog(Useless(client))
