@@ -73,232 +73,232 @@ for filename in os.listdir('./cogified'):
 
 ###################### Currency Functions ############################
 
-async def open_account(user):
-    users = await get_bank_data()
+# async def open_account(user):
+#     users = await get_bank_data()
 
-    if str(user.id) in users:
-        return False
-    else:
-        users[str(user.id)] = {}
-        users[str(user.id)]["wallet"] = 0
-        users[str(user.id)]["bank"] = 150
+#     if str(user.id) in users:
+#         return False
+#     else:
+#         users[str(user.id)] = {}
+#         users[str(user.id)]["wallet"] = 0
+#         users[str(user.id)]["bank"] = 150
 
-    with open('bank.json', 'w') as f:
-        json.dump(users, f, indent=4)
-    return True
+#     with open('bank.json', 'w') as f:
+#         json.dump(users, f, indent=4)
+#     return True
 
-async def get_bank_data():
-    with open('bank.json', 'r') as f:
-        users = json.load(f)
+# async def get_bank_data():
+#     with open('bank.json', 'r') as f:
+#         users = json.load(f)
 
-    return users
+#     return users
 
-async def update_bank(user, change=0, mode="wallet"):
-    users = await get_bank_data()
+# async def update_bank(user, change=0, mode="wallet"):
+#     users = await get_bank_data()
 
-    users[str(user.id)][mode] += change
+#     users[str(user.id)][mode] += change
 
-    with open('bank.json', 'w') as f:
-        json.dump(users, f, indent=4)
+#     with open('bank.json', 'w') as f:
+#         json.dump(users, f, indent=4)
 
-    bal = [users[str(user.id)]["wallet"], users[str(user.id)]['bank']]
-    return bal
+#     bal = [users[str(user.id)]["wallet"], users[str(user.id)]['bank']]
+#     return bal
 
-################## Currency commands but I can't get cogs working right now lol #################################S
+# ################## Currency commands but I can't get cogs working right now lol #################################S
 
-# BALANCE
+# # BALANCE
 
-@client.command(aliases=['bal'])
-async def balance(ctx, member : discord.Member = None):
-    if not member:
-        member = ctx.author
-    await open_account(member)
+# @client.command(aliases=['bal'])
+# async def balance(ctx, member : discord.Member = None):
+#     if not member:
+#         member = ctx.author
+#     await open_account(member)
 
-    users = await get_bank_data()
-    user = member
+#     users = await get_bank_data()
+#     user = member
 
-    wallet_amount =  users[str(user.id)]["wallet"]
-    bank_amount =  users[str(user.id)]["bank"]
+#     wallet_amount =  users[str(user.id)]["wallet"]
+#     bank_amount =  users[str(user.id)]["bank"]
 
-    await ctx.send(
-        f'__***{member.name}\'s Balance***__\n\n**Wallet:** *{wallet_amount}*\n**Bank:** *{bank_amount}*'
-    )
+#     await ctx.send(
+#         f'__***{member.name}\'s Balance***__\n\n**Wallet:** *{wallet_amount}*\n**Bank:** *{bank_amount}*'
+#     )
 
-# BEG
+# # BEG
 
-@client.command()
-@commands.cooldown(1, 17, commands.BucketType.user)
-async def beg(ctx):
-    await open_account(ctx.author)
+# @client.command()
+# @commands.cooldown(1, 17, commands.BucketType.user)
+# async def beg(ctx):
+#     await open_account(ctx.author)
 
-    users = await get_bank_data()
-    user = ctx.author
+#     users = await get_bank_data()
+#     user = ctx.author
 
-    earnings = random.randrange(310)
+#     earnings = random.randrange(310)
 
-    people = [
-        'Mr. Goodman',
-        'Fruitsy',
-        'Tordy Boi',
-        'Dr. Phobia',
-        'Katie Perry',
-        'Tallie',
-        'Drey',
-	    'Kailani',	
-        'Dewey',
-	    'Rochella',	
-        'Danyon',
-	    'Trixibelle',	
-        'Jetaime',
-        'Daddy~',
-        'Discord',
-        'Tom',
-        'Edd',
-        'Matt',
-        'Popstar Jamie',
-        'TKOF',
-        'Blaze',
-        'Patrick',
-        'Spongebob',
-        'Squidward',
-        'Sandy',
-        'Mr. Krabs',
-        'Deimos',
-        'Hank',
-        'Tricky',
-        'Rule 34 Artist'
-    ]
+#     people = [
+#         'Mr. Goodman',
+#         'Fruitsy',
+#         'Tordy Boi',
+#         'Dr. Phobia',
+#         'Katie Perry',
+#         'Tallie',
+#         'Drey',
+# 	    'Kailani',	
+#         'Dewey',
+# 	    'Rochella',	
+#         'Danyon',
+# 	    'Trixibelle',	
+#         'Jetaime',
+#         'Daddy~',
+#         'Discord',
+#         'Tom',
+#         'Edd',
+#         'Matt',
+#         'Popstar Jamie',
+#         'TKOF',
+#         'Blaze',
+#         'Patrick',
+#         'Spongebob',
+#         'Squidward',
+#         'Sandy',
+#         'Mr. Krabs',
+#         'Deimos',
+#         'Hank',
+#         'Tricky',
+#         'Rule 34 Artist'
+#     ]
 
-    await ctx.send(f'**{random.choice(people)}**, has given you: *{earnings}* *coins/money, satisfied yet?*')
+#     await ctx.send(f'**{random.choice(people)}**, has given you: *{earnings}* *coins/money, satisfied yet?*')
 
-    users[str(user.id)]["wallet"] += earnings
+#     users[str(user.id)]["wallet"] += earnings
 
-    with open("bank.json", 'w') as f:
-        json.dump(users, f, indent=4)
+#     with open("bank.json", 'w') as f:
+#         json.dump(users, f, indent=4)
 
-# WITHDRAW
+# # WITHDRAW
 
-@client.command(aliases=['with', 'wd', 'draw'])
-async def withdraw(ctx, amount=None):
-    await open_account(ctx.author)
+# @client.command(aliases=['with', 'wd', 'draw'])
+# async def withdraw(ctx, amount=None):
+#     await open_account(ctx.author)
 
-    if amount == None:
-        await ctx.send('You did not provide an amount to withdraw.')
-        return
+#     if amount == None:
+#         await ctx.send('You did not provide an amount to withdraw.')
+#         return
     
-    bal = await update_bank(ctx.author)
+#     bal = await update_bank(ctx.author)
 
-    if amount == "all":
-        amount = bal[0]
-    elif amount == "max":
-        amount = bal[0]
+#     if amount == "all":
+#         amount = bal[0]
+#     elif amount == "max":
+#         amount = bal[0]
 
-    amount = int(amount)
+#     amount = int(amount)
 
-    if amount < 0:
-        await ctx.send('Amount given must be more then 0.')
-        return
+#     if amount < 0:
+#         await ctx.send('Amount given must be more then 0.')
+#         return
     
-    if amount > bal[1]:
-        await ctx.send('You do not have enough money to withdraw.')
-        return
+#     if amount > bal[1]:
+#         await ctx.send('You do not have enough money to withdraw.')
+#         return
 
-    await update_bank(ctx.author, amount, "wallet")
-    await update_bank(ctx.author, -1*amount, "bank")
+#     await update_bank(ctx.author, amount, "wallet")
+#     await update_bank(ctx.author, -1*amount, "bank")
 
-    await ctx.send(f'You withdrawed {amount}, are you satisfied yet? lol.')
+#     await ctx.send(f'You withdrawed {amount}, are you satisfied yet? lol.')
 
-@client.command(aliases=['depo'])
-async def deposit(ctx, amount=None):
-    await open_account(ctx.author)
+# @client.command(aliases=['depo'])
+# async def deposit(ctx, amount=None):
+#     await open_account(ctx.author)
 
-    if amount == None:
-        await ctx.send('You did not provide an amount to deposit.')
-        return
+#     if amount == None:
+#         await ctx.send('You did not provide an amount to deposit.')
+#         return
     
-    bal = await update_bank(ctx.author)
+#     bal = await update_bank(ctx.author)
 
-    if amount == "all":
-        amount = bal[1]
-    elif amount == "max":
-        amount = bal[1]
+#     if amount == "all":
+#         amount = bal[1]
+#     elif amount == "max":
+#         amount = bal[1]
 
-    amount = int(amount)
+#     amount = int(amount)
 
-    if amount < 0:
-        await ctx.send('Amount given must be more then 0.')
-        return
+#     if amount < 0:
+#         await ctx.send('Amount given must be more then 0.')
+#         return
     
-    if amount > bal[1]:
-        await ctx.send('You do not have enough money to withdraw.')
-        return
+#     if amount > bal[1]:
+#         await ctx.send('You do not have enough money to withdraw.')
+#         return
 
-    await update_bank(ctx.author, -1*amount, "wallet")
-    await update_bank(ctx.author, amount, "bank")
+#     await update_bank(ctx.author, -1*amount, "wallet")
+#     await update_bank(ctx.author, amount, "bank")
 
-    await ctx.send(f'You deposited {amount}, are you satisfied yet? lol.')
+#     await ctx.send(f'You deposited {amount}, are you satisfied yet? lol.')
 
-@client.command(aliases=['dep', 'd', 'posit'])
-async def give(ctx, member:discord.Member, amount=None):
-    await open_account(ctx.author)
-    await open_account(member)
+# @client.command(aliases=['dep', 'd', 'posit'])
+# async def give(ctx, member:discord.Member, amount=None):
+#     await open_account(ctx.author)
+#     await open_account(member)
 
-    if amount == None:
-        await ctx.send('You did not provide an amount to give.')
-        return
+#     if amount == None:
+#         await ctx.send('You did not provide an amount to give.')
+#         return
     
-    bal = await update_bank(ctx.author)
+#     bal = await update_bank(ctx.author)
 
-    if amount == "all":
-        amount = bal[1]
-    elif amount == "max":
-        amount = bal[1]
+#     if amount == "all":
+#         amount = bal[1]
+#     elif amount == "max":
+#         amount = bal[1]
 
-    amount = int(amount)
+#     amount = int(amount)
 
-    if amount < 0:
-        await ctx.send('Amount given must be more then 0.')
-        return
+#     if amount < 0:
+#         await ctx.send('Amount given must be more then 0.')
+#         return
     
-    if amount > bal[1]:
-        await ctx.send('You do not have enough money to withdraw.')
-        return
+#     if amount > bal[1]:
+#         await ctx.send('You do not have enough money to withdraw.')
+#         return
 
-    await update_bank(ctx.author, -1*amount, "wallet")
-    await update_bank(member, amount, "wallet")
+#     await update_bank(ctx.author, -1*amount, "wallet")
+#     await update_bank(member, amount, "wallet")
 
-    await ctx.send(f'You gave {member} {amount}, are you satisfied yet? lol.')
+#     await ctx.send(f'You gave {member} {amount}, are you satisfied yet? lol.')
 
-# ROB
+# # ROB
 
-@client.command(aliases=['steal'])
-async def rob(ctx, member : discord.Member = None):
-    if member == None:
-        await ctx.send('No member provided to rob..Please supply one.')
-        return
+# @client.command(aliases=['steal'])
+# async def rob(ctx, member : discord.Member = None):
+#     if member == None:
+#         await ctx.send('No member provided to rob..Please supply one.')
+#         return
 
-    await open_account(ctx.author)
-    await open_account(member)
+#     await open_account(ctx.author)
+#     await open_account(member)
 
-    bal = await update_bank(member)
-    robberBal = await update_bank(ctx.author)
+#     bal = await update_bank(member)
+#     robberBal = await update_bank(ctx.author)
 
-    if robberBal[0] < 150:
-        return await ctx.send('You do not have atleast 150 coins to rob..')
-    else:
-        if bal[0] < 150:
-            return await ctx.send('Mentioned user does not have atleast 150 coins.')
+#     if robberBal[0] < 150:
+#         return await ctx.send('You do not have atleast 150 coins to rob..')
+#     else:
+#         if bal[0] < 150:
+#             return await ctx.send('Mentioned user does not have atleast 150 coins.')
 
-    stolen = random.randrange(-1*(robberBal[0]), bal[0])
+#     stolen = random.randrange(-1*(robberBal[0]), bal[0])
 
-    await update_bank(ctx.author, stolen)
-    await update_bank(member,-1* stolen)
+#     await update_bank(ctx.author, stolen)
+#     await update_bank(member,-1* stolen)
 
-    if stolen > 0:
-        return await ctx.send(f'You have took {stolen} coins...what a bad boy..🤣😂')
-    elif stolen < 0:
-        stolen = stolen*-1
-        return await ctx.send(f'You got caught stealing...what a bad boy, aren\'t you? lol.\nYou also paided {stolen} coins.')
+#     if stolen > 0:
+#         return await ctx.send(f'You have took {stolen} coins...what a bad boy..🤣😂')
+#     elif stolen < 0:
+#         stolen = stolen*-1
+#         return await ctx.send(f'You got caught stealing...what a bad boy, aren\'t you? lol.\nYou also paided {stolen} coins.')
 
 # @client.command(aliases=['bet'])
 # async def slots(ctx, amount=None):

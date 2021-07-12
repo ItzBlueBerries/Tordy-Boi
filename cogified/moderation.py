@@ -131,5 +131,15 @@ class Moderation(commands.Cog):
         await asyncio.sleep(1)
         await ctx.send(f'{arg1} has been created.')
 
+    @commands.command()
+    async def delete(self, ctx, check=None):
+        if (not ctx.author.guild_permissions.manage_channels):
+            await ctx.send('Yeah, you don\'t have the `MANAGE_CHANNELS` permission, lol.')
+            return
+        if check == None:
+            return await ctx.send('Please include the a check at the end. (Any message is good, this is just to make sure you want to delete the channel.)')
+        
+        await ctx.message.channel.delete()
+
 def setup(client):
     client.add_cog(Moderation(client))

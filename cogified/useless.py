@@ -3,6 +3,7 @@ import discord
 from discord import client
 from discord import message
 from discord.colour import Color
+from discord.embeds import Embed
 from discord.ext import commands
 from discord.ext.commands.errors import CheckAnyFailure
 
@@ -41,7 +42,17 @@ class Useless(commands.Cog):
 
     @commands.command(aliases=['ads'])
     async def advertisement(self, ctx):
-        await ctx.send('Testing..')
+        ads = discord.Embed(
+            title='Tordy Boi Advertisements',
+            color=discord.Colour.dark_red()
+        )
+
+        ads.set_image(url='https://i.quotev.com/img/q/u/17/5/3/3qrpzqm4fv.jpg')
+        ads.add_field(name='Fruitsy Bot Testing Server', value='[I was born here, and I am tested there lol.](https://discord.gg/gX3JRNedXd)')
+        ads.add_field(name='Reality Engine', value='[Ay, a server for an fnf engine..? THAT MY CREATOR MADE? lol](https://discord.gg/NWaaPpgvjp)')
+        ads.add_field(name='Fruitsy\'s Modding Club', value='[A fnf modding server that my creator made, go join lol.](https://discord.gg/JzcAAHVJE7)')
+
+        await ctx.send(embed=ads)
 
 def setup(client):
     client.add_cog(Useless(client))

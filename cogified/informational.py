@@ -29,6 +29,7 @@ class Informational(commands.Cog):
         Useless.add_field(name='Hello', value='`Says hello back.`', inline=False)
         Useless.add_field(name='Server', value='`The bots community server.`', inline=False)
         Useless.add_field(name='Avatar', value='`Gets your avatar or mentioned user.`', inline=False)
+        Useless.add_field(name='Advertisements', value='`Just some stuff that is advertised on the bot.`', inline=False)
 
         Moderate = discord.Embed(title='Moderation Section', description='This is where all the moderation commands are.', colour=color)
         Moderate.add_field(name='Kick', value='`Kicks the mentioned member.`', inline=False)
@@ -40,24 +41,30 @@ class Informational(commands.Cog):
         Moderate.add_field(name='Slowmode', value='`Sets a channels slowmode.`', inline=False)
         Moderate.add_field(name='Rename', value='`Renames current channel your in.`', inline=False)
         Moderate.add_field(name='Create', value='`Creates a channel in the current guild your in.`', inline=False)
+        Moderate.add_field(name='Delete', value='`Deletes the current channel your in.`', inline=False)
 
         Utility = discord.Embed(title='Utility Section', description='This is where all the utility commands are.', colour=color)
         Utility.add_field(name='Setprefix', value='`Changes the guilds prefix.`', inline=False)
 
-        Economy = discord.Embed(title='Economy Section', description='This is where all the economy commands are.', colour=color)
-        Economy.add_field(name='Balance', value='`Gets your money balance.`', inline=False)
-        Economy.add_field(name='Beg', value='`Beg for money from strangers, lol.`', inline=False)
-        Economy.add_field(name='Withdraw', value='`Withdraw some money from the bank.`', inline=False)
-        Economy.add_field(name='Deposit', value='`Deposit some money from the wallet.`', inline=False)
-        Economy.add_field(name='Give', value='`Give somebody some money.(From your wallet only, lol.)`', inline=False)
-        Economy.add_field(name='Rob', value='`Rob someone of their money/coins.', inline=False)
+        # Economy = discord.Embed(title='Economy Section', description='This is where all the economy commands are.', colour=color)
+        # Economy.add_field(name='Balance', value='`Gets your money balance.`', inline=False)
+        # Economy.add_field(name='Beg', value='`Beg for money from strangers, lol.`', inline=False)
+        # Economy.add_field(name='Withdraw', value='`Withdraw some money from the bank.`', inline=False)
+        # Economy.add_field(name='Deposit', value='`Deposit some money from the wallet.`', inline=False)
+        # Economy.add_field(name='Give', value='`Give somebody some money.(From your wallet only, lol.)`', inline=False)
+        # Economy.add_field(name='Rob', value='`Rob someone of their money/coins.', inline=False)
+
+        Tordified = discord.Embed(title='Tordified Secftion', description='This is where all the tordified commands are.', colour=color)
+        Tordified.add_field(name='Norway', value='`Plays a special audio. :)`', inline=False)
+        Tordified.add_field(name='Tord', value='`Sends special gif/video. :)`', inline=False)
+        Tordified.add_field(name='Tordbot', value='`Plays a special audio. :)`', inline=False)
 
         embeds = [
             Info,
             Useless,
             Moderate,
             Utility,
-            Economy
+            Tordified
         ]
 
         paginator = BotEmbedPaginator(ctx, embeds)
