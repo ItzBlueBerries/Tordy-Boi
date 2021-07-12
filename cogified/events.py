@@ -38,7 +38,7 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_disconnect(self):
         print('Disconnecting...')
-        asyncio.sleep(0.5)
+        await asyncio.sleep(0.5)
         print('BotDisconnection <---- Tordy Boi!')
 
 
