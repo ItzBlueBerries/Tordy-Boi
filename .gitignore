@@ -8,3 +8,4 @@ blacklist.json
 TEMPLATE.txt
 image.py
 music.txt
+*.zip
